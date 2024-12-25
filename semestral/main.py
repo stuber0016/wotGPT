@@ -1,11 +1,24 @@
 import os
 
-import RAG.rag_backend
-from RAG.rag_backend import ask_model
-from RAG.rag_backend import rag_init
+import RAG.rag_backend as RAG
 
-model = rag_init()
+model = RAG.Model()
 
-response = ask_model(model, "Where is Paris?")
+responses = []
+responses2 = []
+responses.append(model.query("Hi I am Sam", "Sam"))
+responses.append(model.query("Do you know my name?", "Sam"))
+responses.append(model.query("Can you tell me what is a good equipment for obj. 277?", "Sam"))
+responses2.append(model.query("Do you know my name?", "Alex"))
+responses2.append(model.query("Call me Alex.", "Alex"))
+responses2.append(model.query("Why do I suck at world of tanks?.", "Alex"))
 
-print(response)
+
+def printer(to_print):
+    for i in range(len(to_print)):
+        print(i, ". ", to_print[i])
+    print("\n----\n")
+
+
+printer(responses)
+printer(responses2)
