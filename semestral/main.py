@@ -1,6 +1,4 @@
-import os
-
-import RAG.rag_backend as RAG
+import model as RAG
 
 model = RAG.Model()
 
