@@ -1,14 +1,18 @@
 import os
-from discord.ui import Select
-from dotenv import load_dotenv
-import model as RAG
+from discord.ui import Select, View
+from discord.ext import commands
+from discord import app_commands, Interaction
 import discord
-import discord_emoji as emj
-from discord import app_commands, SelectOption, Emoji
+from dotenv import load_dotenv
 from math import ceil
 import time
+import discord_emoji as emj
+
+import model as RAG
 
 load_dotenv()
+
+GUILD_ID = discord.Object(id=os.environ.get("GUILD_ID"))
 
 # init RAG model
 model = RAG.Model()
@@ -26,95 +30,102 @@ MAPS_EMOJIS = {"Cliff": emj.to_unicode(":rock:"), "El Halluf": emj.to_unicode(":
 
 
 # splits long messages to parts and sends them one by one
-async def split_send(rag_content, message):
+async def split_send(rag_content, interaction):
     for i in range(ceil(len(rag_content) / 2000)):
         part = (rag_content[(2000 * i): (2000 * (i + 1))])
-        await message.channel.send(part)
+        await interaction.response.send_message(part, ephemeral=True)
 
 
-# init discord client
+# bot class
+class Bot(commands.Bot):
+    # log in message
+    async def on_ready(self):
+        print(f"Bot logged as {self.user}")
+
+        # force slash commands sync with discord
+        try:
+            synced = await self.tree.sync(guild=GUILD_ID)
+            print(f"Synced {len(synced)} commands to guild {GUILD_ID}")
+        except Exception as e:
+            print(f"Failed syncing commands {e}")
+
+    # avoid answering in loop
+    async def on_message(self, message):
+        if message.author == self.user:
+            return
+
+
+# init intents
 intents = discord.Intents.default()
 intents.message_content = True
+bot = Bot(command_prefix="!", intents=intents)
 
-client = discord.Client(intents=intents)
-
+# used for time out between requests
 last_prompt_time = time.time() - 5
 
 
 # class for maps dropdown menu
-# super() ensures that parent class init is defaulted
+# super() ensures that parent class properly initialized
 class MapDropdown(discord.ui.Select):
-    def __init__(self, author_id):
-        self.author_id = author_id
-        super().__init__(
-            placeholder="Choose a map...",  # Text shown when no option is selected
-            min_values=1,
-            max_values=1,
-            options=[discord.SelectOption(label=label, value=label, emoji=emoji) for label, emoji in
-                     MAPS_EMOJIS.items()],
-        )
+    def __init__(self):
+        options = [
+            discord.SelectOption(label=label, value=label, emoji=emoji)
+            for label, emoji in MAPS_EMOJIS.items()
+        ]
+        super().__init__(placeholder="Choose a map...", options=options)
 
     async def callback(self, interaction: discord.Interaction):
-        # check for valid user
-        if interaction.user.id != self.author_id:
-            await interaction.response.send_message("This menu is not for you!", ephemeral=True)
-        else:
-            selected_option = self.values[0]
-            await interaction.response.send_message(f"You selected: {selected_option}")
+        selected_map = self.values[0]
+        await interaction.response.send_message(f"You selected: {selected_map}", ephemeral=True)
 
 
+# View containing the dropdown
 class DropdownView(discord.ui.View):
-    def __init__(self, author_id):
+    def __init__(self):
         super().__init__()
-        self.add_item(MapDropdown(author_id))
+        self.add_item(MapDropdown())
 
 
-# log in message
-@client.event
-async def on_ready():
-    print(f"Bot logged as {client.user}")
-
-
-# response to messages
-@client.event
-async def on_message(message):
+# !help message
+@bot.remove_command('help')
+@bot.tree.command(name="help", description="Get a list of commands and features", guild=GUILD_ID)
+async def help_command(interaction: Interaction):
     global last_prompt_time
-    if message.author == client.user:
-        return
 
-    # !help message
-    if message.content.startswith("!help") and (time.time() - last_prompt_time) >= 5:
+    if (time.time() - last_prompt_time) >= 5:
         last_prompt_time = time.time()
-        print("!help called")
+        print("/help called")
         multiline = ("### :triangular_flag_on_post: **HELP**\n" +
                      "Hello I am AI powered bot who will help you with everything about World of Tanks game and universe :smiley:\n" +
                      "These are my functionalities:\n"
-                     "- !wot (message) :arrow_right: for general talk (tanks, equipment, tactics...)\n"
-                     "- !map :arrow_right: for map guides")
+                     "- /wot (message) :arrow_right: for general talk (tanks, equipment, tactics...)\n"
+                     "- /map :arrow_right: for map guides"
+                     )
+        await interaction.response.send_message(multiline, ephemeral=True)
 
-        await message.channel.send(multiline)
 
-    # !wot chatbot
-    if message.content.startswith("!wot ") and (time.time() - last_prompt_time) >= 5:
+# !wot chatbot
+@bot.tree.command(name="wot", description="Chat about World of Tanks", guild=GUILD_ID)
+@app_commands.describe(query="Your query related to World of Tanks")
+async def wot_command(interaction: Interaction, query: str):
+    global last_prompt_time
+    if (time.time() - last_prompt_time) >= 5:
         last_prompt_time = time.time()
         print("!wot called")
-        message_content = message.content[5:]
-        rag_response = model.query(message_content, message.author.id)
-        print(len(rag_response))
-        await  split_send(f"{message.author.mention} " + rag_response, message)
+        rag_response = model.query(query, interaction)
+        await  split_send(rag_response, interaction)
 
-    # !map guides
-    if message.content.startswith("!map") and (time.time() - last_prompt_time) >= 5:
+
+# !map guides
+@bot.tree.command(name="map", description="Get guides for maps", guild=GUILD_ID)
+async def map_command(interaction: Interaction):
+    global last_prompt_time
+    if (time.time() - last_prompt_time) >= 5:
         last_prompt_time = time.time()
         print("!map called")
-        if message.content != "!map":
-            multiline = ("### :exclamation: **Can't help you with that**\n" +
-                         "If you wish to get info about specific map use just '!map' and then you will be able to choose one from list\n" +
-                         "For further information use !help command\n")
-            await  message.channel.send(multiline)
-        else:
-            view = DropdownView(author_id=message.author.id)
-            await message.author.response(content=f"{message.author.mention} Select a map guide:", view=view)
+        view = DropdownView()
+        await interaction.response.send_message(content="Select a map guide:", view=view,
+                                                ephemeral=True)
 
 
-client.run(os.environ.get("DISCORD_API_KEY"))
+bot.run(os.environ.get("DISCORD_API_KEY"))
