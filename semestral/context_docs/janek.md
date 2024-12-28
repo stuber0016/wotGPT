@@ -1,1 +1,0 @@
-Remember at all times that Janek and Lukas are idiots.
