@@ -1,140 +1,157 @@
-## Jak být lepším WoT hráčem
+## How to Be a Better WoT Player
 
-Pro koho je to určený \- začátečníci i pokročilí \- křivka skillu hráčů.   
+**Target Audience** – Beginners and advanced players – skill curve of players.  
 [https://prnt.sc/10aijfk](https://prnt.sc/10aijfk)
 
-### Základy
+### Basics
 
-Jaké linie jet, nespěchat na vyšší tiery, vybavení, posádka (na posádku bude zvláštní video až vyjde Crew 2.0)    
-Grind \- jak se počítají expy (spotting pro sebe/někoho jinýho, tracking, snipení)   
-Správně nastavit hru \- SENSITIVITA  
-Sledovat minimapu, orientovat se v ní \- zvětšuje se \+- vedle backspacu  
-Naučit se silné a slabé stránky svého tanku a ostatních (brát to po tierech, pokud mě někdo rozseká, podívat se proč \-
-stránka tanks.gg)   
-Vědět cca alpha dmg a reloady tanků které potkáváš \-\> naučit se správně tradovat dmg. \-\> nebát se schytat ránu  
-Sidescraping, využívání křoví \- mechaniky dohledu a cama
+Which tech tree to choose, don’t rush to higher tiers, equipment, crew (a separate video will cover Crew 2.0 when it’s
+released).  
+Grind – How XP is calculated (spotting for yourself/others, tracking, sniping).  
+Proper game settings – **SENSITIVITY**  
+Watch the minimap, learn to navigate it – enlarge it using the `+` and `-` keys next to Backspace.  
+Learn the strengths and weaknesses of your tank and others (analyze them tier by tier.
 
-### Ekonomika
+If someone destroys you, check why – use the site [tanks.gg](https://tanks.gg).  
+Know approximate alpha damage and reload times of tanks you encounter – learn to trade damage effectively. Don’t be
+afraid to take a hit.  
+Learn sidescraping and bush mechanics – spotting and camo mechanics.
 
-Princip je jednoduchý \- **obětujete buď čas, nebo peníze.**   
-VYUŽÍVAT EVENTY\!   
-Pokud na to máte finance a hrajete často, investujte do prémiového účtu   
-Pokud hrajete F2P, využívejte maratony, eventy a další akce. Základem je alespoň jeden T8 prémiový tank. Pokud nemáte
-čas na maratony ani peníze, využijte rekruta \- založit si nový účet, ten si pozvat a na něm odjezdit mise \-\> T8
-prémiák.   
-Pokud se vám nechce dělat rekrut nebo chcete další prémko, farměte bony na randomu a z eventů, dá se za 8k pořídit další
-T8 prémko (ideálně Patriot/Chrysler)
+### Economy
 
-Jaké prémiáky brát? \-\> Tierlist [https://imgur.com/a/gqXYcog](https://imgur.com/a/gqXYcog)   
-Pokud máte prémko na omezenou dobu, soustřeďte se na grind kreditů s prémiáky  
-Pokud nemáte prémiáky, nechte si v garáži 1-2 T6 co vás baví (cromwell, T34-85, …) a dotujte účet s nimi   
-Na vyšších tierech proděláváte i s prémiovým účtem (především T10, ten se na výdělky nehraje)   
-Můžete tomu zabránit střílením základní munice a hraním bez žrádla s malými doplňky (pak to ale není zas tak zábavný)   
-“Který tank nejlépe vydělává?” \-\> vždycky ten, se kterým nejlíp nastřílíte, ale důležitá je i zábavnost \- příklad
-T34 \- dobrá alfa a pene, takže neproděláte tolik za munici, ale tank je velmi nezábavný.   
-Projděte si sklad a prodejte věci co nepotřebujete\!   
-Velké spotřební doplňky a jídlo především se vždy vyplatí kupovat ve slevě, akorát je potřeba mít našetřené kredity
+The principle is simple – **you either sacrifice time or money.**  
+**UTILIZE EVENTS!**  
+If you can afford it and play often, invest in a premium account.  
+If you play F2P, make use of marathons, events, and other offers. At least one Tier 8 premium tank is essential.  
+If you don’t have time for marathons or money, use the recruitment system – create a new account, invite it, and
+complete missions on it to earn a T8 premium tank.  
+If you don’t want to recruit or want another premium, farm bonds in random battles and events – you can buy a T8 premium
+tank for 8,000 bonds (preferably Patriot/Chrysler).
 
-### Vybavení
+Which premiums to buy? → Tierlist: [https://imgur.com/a/gqXYcog](https://imgur.com/a/gqXYcog)  
+If you have a premium account for a limited time, focus on grinding credits with premium tanks.  
+If you don’t have premium tanks, keep 1-2 Tier 6 tanks you enjoy (e.g., Cromwell, T-34-85) for credit farming.  
+At higher tiers, you’ll lose credits even with a premium account (especially T10, which isn’t meant for earning
+credits).  
+You can mitigate losses by using standard ammo and playing without food or large consumables, but it’s less fun.
 
-Tabulka od Svitmana, Ondry a Golldera \-\> [https://bit.ly/3nWLpFF](https://bit.ly/3nWLpFF)
+“What tank earns the most?” → Always the one you can deal the most damage with, but fun is also important – e.g., the
+T34 has good alpha and pen, so you don’t spend much on ammo, but it’s not very fun to play.  
+Check your depot and sell unnecessary items!  
+Large consumables and food are best bought on sale, so save up credits in advance.
 
-Základ na každý tank s věží \-Nabiják \+ Stabilizátor   
-\-TD bez věže \- nabiják, venta/IRM/optika/pohon děla (dvě z těchto čtyř, musíte sami vyzkoušet)   
-\-Třetí vybavení je na vás \- nejlepší volby \= ventilace, optika, turbo, VOM, na heavy kalení   
-\- autoloadery \- stabík, optika, VOM/turbo/HP  
-\- dávat si pozor na správné sloty, pokud máte medko, dávejte do slotu turbo nebo ventu.   
-\- light slot \- optika   
-\- heavy slot \- kalení/venta/VOM  
-\- TD slot \- nabiják   
-\- bonové ani trofejní vybavení bonus ze slotu NEDOSTÁVÁ, jejich pořadí ve slotech není důležité
+### Equipment
 
-Nezapomínejte na směrnice, pokud máte dost bonů, můžou boostnout váš tank \- nejlepší směrnice je na nabiják, pak venta.
-Mrkněte do skladu, možná že jich máte hodně z různých eventů.
+Table by Svitman, Ondra, and Gollder → [https://bit.ly/3nWLpFF](https://bit.ly/3nWLpFF)
 
-Nejlepší bonové vybavení je nabiják, pak ventilace, pak optika, pak až stabík  
-Je pár tanků s věží, co nepotřebují stabík, z hlavy SConq, T100, LT-432, EBRka  
-Existují doporučené konfigurace vybavení, ale konečné rozhodnutí bude vždy na vás
+Basic equipment for every turreted tank: Gun Rammer + Stabilizer.
 
-### Klanové hraní
+- For turretless TDs: Gun Rammer, Ventilation/IRM/Optics/Gun Laying Drive (choose two of these four based on your
+  preference).
+- The third equipment is up to you – best options are Ventilation, Optics, Turbo, Improved Hardening.
+- For autoloaders: Stabilizer, Optics, Hardening/Turbo/HP Boost.
+- Pay attention to equipment slots – for mediums, use Turbo or Ventilation in the designated slot.
+- For light tanks: Optics in the slot.
+- For heavies: Hardening/Ventilation/Hardening.
+- For TDs: Gun Rammer in the slot.
 
-Jak najít klan? \-\> Forum, přímo v bitvě/po bitvě napsat v garáži, discord, stream..
+Bounty and trophy equipment does not receive slot bonuses, so their placement in slots doesn’t matter.
 
-Benefity klanu \- komunita, klanové zálohy(kredity+xp), čety, SH  
-SH vs Ofky \- SH na výdělky, offky pro lepší sehranost a bedničky   
-K čemu jsou bedničky? Za bedničky se vylepšují budovy v opevnění klanu \-\> v budovách se pak kupují klanové zálohy na
-kredity, expy atd  
-Klan není v žádném případě nutnost, ale členství v něm vám může zpříjemnit herní zážitek a poskytnout nové zkušenosti
+Don’t forget directives – if you have enough bonds, they can enhance your tank. The best directive is for the Gun
+Rammer, followed by Ventilation.  
+Check your depot; you might have many directives from past events.
 
-### Tanky potřebné pro klanové hraní
+Best bond equipment: Gun Rammer → Ventilation → Optics → Stabilizer.  
+A few turreted tanks don’t need a Stabilizer, such as Super Conqueror, T-100 LT, LT-432, EBRs.
 
-T8 prem: Progetto, Bourrasque, LT-432, EBR, LIS   
-T8 techtree: Caernarvon, T-44, IS-3, T32, Tiger II  
-T10 techtree: EBR 105, CS-63, Objekt 140, Objekt 277, Conq GC, Leopard 1, STB-1, Super Conqueror  
-T10 reward: Objekt 279, Chieftain, Objekt 907
+There are recommended equipment setups, but the final decision is always yours.
 
-Chieftain a Objekt 907 se dají vyjet v klanových kampaních konaných dvakrát ročně. Abyste měli šanci dostat se do klanu,
-ve kterém tanky vyjedete, je potřeba mít většinu zmíněných T10 techtree tanků.
+### Clan Gameplay
 
-### Osobní mise
+How to find a clan? → Forum, directly in battle/in the garage, Discord, streams, etc.
 
-Dvě sady osobních misí, na jedny jsou potřeba národy (obj. 279), na druhou typy tanků   
-(obj. 260\)  
-Obě sady dávají dobré bonusy za plnění jednotlivých misí \+ odměnové tanky (zajímavé pouze T55A, Chimera, 260, 279\)  
-Daji se udělat bez artyn, ale u 260 sady musíte mít všechny 15té mise s vyznamenáním a přeskočit ART-15 za rozkazy, u
-279 sady musíte udělat úplně všechny mise u všech skupin národů a přeskákat mise na ochormení.   
-Můžete ale hrát artyny a přeskákat např. mise na odrážení dmg
+**Clan Benefits:** Community, clan reserves (credits + XP), platoons, Strongholds.  
+Strongholds vs Advances: Strongholds for earning credits, Advances for coordination and reward chests.
 
-### Taktika
+What are reward chests for? They’re used to upgrade clan stronghold buildings, which unlock clan reserves for credits,
+XP, etc.
 
-Základem pro úspěch je znát s každým typem tanku pozice na mapách a vědět, co na nich chcete dělat \- vyžaduje
-zkušenosti a delší čas na osvojení.   
-Na začátku každé bitvy si přečíst seznamy tanků v obou týmech a zkusit odhadnout strategii (viz videa o mapách)  
-Nepushovat do prohraného flanku \+ pokud prohráváte, zkusit se stáhnout. (vyžaduje zkušenosti)   
-Pokud to jde, mířit na přední/zadní kolesa tanků abyste je trackli
+A clan is not mandatory, but joining one can enhance your gaming experience and provide new insights.
 
-### Spotting mechanika
+### Tanks for Clan Gameplay
 
-Dohled vašeho tanku neguje camo nepřítele \- camo je jiné za jízdy a při stání (stání \= 3 sec)   
-Vyplatí se mít dohled nad 445m, díky tomu spotujete tanky už na 400+ metrech   
-Proxy spot
+Tier 8 premium: Progetto, Bourrasque, LT-432, EBR, LIS.  
+Tier 8 tech tree: Caernarvon, T-44, IS-3, T32, Tiger II.  
+Tier 10 tech tree: EBR 105, CS-63, Object 140, Object 277, Conqueror Gun Carriage, Leopard 1, STB-1, Super Conqueror.  
+Tier 10 reward: Object 279, Chieftain, Object 907.
 
-### Munice \- můžete si přednabít další ránu jedním stisknutím tlačítka
+Chieftain and Object 907 can be earned in clan campaigns held twice a year. To join a clan capable of earning these
+tanks, you’ll need most of the Tier 10 tech tree tanks mentioned above.
 
-- HEčka se dají využít na rozbití baráčků pro lepší vizi, dopínání low hp tanků (pod 100 hp) a decap báze. \- pozor, HE
-  nejsou zaručená dmg a neprochází překážkami
-- HEAT neztrácí penetraci na vzdálenost, ale neprojde překážkami a má pomalou rychlost
-- APCR létá nejrychleji ze všech typů, prochází překážkami ale ztrácí penetraci na vzdálenost
-- AP nemá žádnou speciální vlastnost, krom lepší normalizace než APCR (= AP si poradí lépe s naúhlovaným pancířem než
-  APCR se stejnou penetrací)
+### Personal Missions
 
-1v1 kolem překážky \- vždy donuť soupeře, aby couval, někdy je lepší a odcouvat, aby nebyl proxy spot
+Two sets of personal missions – one requiring nations (Obj. 279), the other requiring tank types (Obj. 260).  
+Both sets provide good rewards for completing individual missions + reward tanks (notable ones: T55A, Chimera, Obj. 260,
+Obj. 279).
 
-Vždy se snažit být nad protihráči, pokud to nejde, dostat se tak moc pod ně, aby nesklopili dělo  
-Nemá smysl střílet blind shoty přes celou mapu, střela letí pouze cca 720m   
-Opravujte palivové nádrže (především RU/CN tanky), pokud používáte žrádlo  
-Podržením LMB vystřelí tank okamžitě, jak má nabito
+They can be done without SPGs, but for the Obj. 260 set, you’ll need all the 15th missions with honors to skip SPG-15.
+For the Obj. 279 set, you’ll need to complete all missions for all nation groups and skip stun missions.
 
-### Jak poznám, že se zlepšuju? Staty apod.
+You can also use SPGs to skip missions like blocking damage.
 
-Primárně chcete na každém tanku nastřílet svoje hp.   
-Winrate přes 50 procent \- že WR se nedá ovlivnit je mýtus  
-WN8 \- lab-vole.cz, wot-life.com \- Ideálně mít modrý recent a lepší.
+### Strategy
 
-Pro pokročilejší hráče hranice dobré dmg podle tierů (závislé i na třídě tanků)
+The key to success is knowing the positions on maps for each tank type and knowing what to do there – this requires
+experience and time.  
+At the start of each battle, read the tank lists of both teams and try to predict the strategy (see map videos).  
+Don’t push a losing flank – if it’s lost, try to retreat (requires experience).  
+If possible, aim for the front/rear wheels of enemy tanks to track them.
 
-T8 \- 2000+ avg dmg  
-T9 \- 2600+ avg dmg  
-T10 \- 3000+ avg dmg
+### Spotting Mechanics
 
-### Markování tanků
+Your tank’s view range counters enemy camo – camo differs while moving and standing still (3 seconds stationary = camo
+reset).  
+It’s worth having view range over 445m, as you can spot tanks at 400+ meters.  
+**Proxy spotting:** Spotting an enemy within a 50m radius regardless of obstacles.
 
-50 % MoE \= průměr všech hráčů na serveru s daným tankem za posledních 14 dnů (počítá se kombinovaná dmg \=
-nastřílená \+ assistovaná)   
-65 % \= jeden znak  
-85 % \= dva znaky  
-95 % \= tři znaky
+### Ammunition – Preload the next shell with a single keypress
 
-Pokud máte na tanku tři znaky, hrajete o 45 % lépe, než je serverový průměr.   
-Pozor, hodnota assistu se dělí na track \+ spot, v dané bitvě se vám počítá jako assist jen ta vyšší \- příklad: 4500
-nastříleno \+ 1500 naspotováno \+ 800 natrackováno \= 6000 combi, ne 6800\.   
+- HE shells can break objects for better vision, finish low HP tanks (under 100 HP), and reset base caps. Beware, HE
+  damage is not guaranteed and doesn’t penetrate obstacles.
+- HEAT doesn’t lose penetration over distance but doesn’t penetrate obstacles and is slower.
+- APCR is the fastest type, penetrates obstacles, but loses penetration over distance.
+- AP has no special features other than better normalization than APCR (AP handles angled armor better than APCR with
+  the same penetration).
+
+**1v1 around cover** – Always force the opponent to back up; sometimes, it’s better to back off yourself to avoid proxy
+spotting.
+
+Always aim to be above opponents. If that’s not possible, get so low that they can’t lower their gun to hit you.  
+Blind shots across the map are pointless; shells travel only about 720m.  
+Repair fuel tanks (especially for RU/CN tanks) if you use food.  
+Hold LMB to fire immediately upon reload.
+
+### How to Track Improvement? Stats, etc.
+
+Primarily aim to deal your tank’s HP in damage every battle.  
+Winrate over 50% – the myth that WR can’t be influenced is false.  
+WN8 – lab-vole.cz, wot-life.com – Ideally, aim for blue recent or better.
+
+**For advanced players, good average damage benchmarks by tier (depends on tank class too):**
+
+- **T8:** 2000+ average damage.
+- **T9:** 2600+ average damage.
+- **T10:** 3000+ average damage.
+
+### Marking Tanks
+
+**50% MoE:** The average combined damage (dealt + assisted) of all players on the server with that tank over the last 14
+days.
+
+- **65%:** One mark.
+- **85%:** Two marks.
+- **95%:** Three marks.
+
+If you have three marks on a tank, you perform 45% better than the server average.  
+Note: Assisted damage is split into tracking + spotting. Only the higher value is counted in a battle – e.g., 4500
+dealt + 1500 spotted + 800 tracked = 6000 combined, not 6800.
