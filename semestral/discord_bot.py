@@ -75,8 +75,23 @@ class MapDropdown(discord.ui.Select):
         super().__init__(placeholder="Choose a map...", options=options)
 
     async def callback(self, interaction: discord.Interaction):
-        selected_map = self.values[0]
-        await interaction.response.send_message(f"You selected: {selected_map}", ephemeral=True)
+        map_name = self.values[0]
+        map_filename = self.values[0] + ".png"
+        file = discord.File(f"img/{map_filename}", filename=map_filename)
+        embed = discord.Embed(title=map_name)
+        embed.set_image(url=f"attachment://{map_filename}")
+        embed.add_field(
+            name="Legend",
+            value=(
+                "<:light:1322710602946449418> **Light**\n"
+                "<:medium:1322710661981147239>  **Med.**\n"
+                "<:heavy:1322710615214657616> **Heavy**\n"
+                "<:TD:1322710591554457712> **TD**\n"
+                "<:arty:1322710568553152522> **SPG**"
+            ),
+            inline=True
+        )
+        await interaction.response.send_message(file=file, embed=embed)
 
 
 # View containing the dropdown
