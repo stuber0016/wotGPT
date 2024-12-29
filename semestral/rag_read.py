@@ -21,14 +21,13 @@ def read_rag_context(query):
 
     # search for the context and check its relevance
     context = db.similarity_search_with_score(query, k=3)
-    if len(context) == 0 or context[0][1] < 0.7:
-        print("No relevant RAG context found")
+    if len(context) == 0 or context[0][1] < 0.5:
+        print("No relevant RAG context found score: ", context[0][1])
         context_parsed = "No relevant RAG context found so the response can be inaccurate."
 
     else:
-        print("Found RAG context")
+        print("Found RAG context score: ", context[0][1])
         context_parsed = "\n\n---\n\n".join([page.page_content for page, _score in context])
-    # header = "Answer the question only on the based context:\n"
-    header = "Answer the question on the based context:\n"
-    footer = f"\n---\nAnswer the question based on the above context: {query}"
+    header = "Answer the question using information from the context:\n"
+    footer = f"\n---\nAnswer the question using information from the context above: {query}"
     return header + context_parsed + footer
