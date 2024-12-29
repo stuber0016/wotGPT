@@ -1,4 +1,3 @@
-import asyncio
 import os
 
 import discord.errors
@@ -83,7 +82,7 @@ class MapDropdown(ui.Select):
         try:
             await interaction.response.defer(ephemeral=True, thinking=True)
         except discord.errors.NotFound:
-            print("Interaction not found - may be be reinitialized automatically")
+            print("Interaction not found - may be be reinitialized automatically possible discord API issue")
 
         await interaction.followup.edit_message(interaction.message.id, content="Thinking...", view=None)
 
@@ -138,7 +137,7 @@ async def wot_command(interaction: Interaction, query: str):
     try:
         await interaction.response.defer(ephemeral=True, thinking=True)
     except discord.errors.NotFound:
-        print("Interaction not found - may be be reinitialized automatically")
+        print("Interaction not found - may be be reinitialized automatically possible discord API issue")
     rag_response = model.query(query, interaction.user.id)
     await split_send(rag_response, interaction)
 
@@ -151,7 +150,7 @@ async def map_command(interaction: Interaction):
     try:
         await interaction.response.send_message(content="Select a map guide:", view=view, ephemeral=True)
     except discord.errors.NotFound:
-        print("Interaction not found - may be be reinitialized automatically")
+        print("Interaction not found - may be be reinitialized automatically possible discord API issue")
 
 
 # /player-stats personal advice
@@ -162,7 +161,7 @@ async def stats_command(interaction: Interaction, nickname: str):
     try:
         await interaction.response.defer(ephemeral=True, thinking=True)
     except discord.errors.NotFound:
-        print("Interaction not found - may be be reinitialized automatically")
+        print("Interaction not found - may be be reinitialized automatically possible discord API issue")
     rag_response = model.player_query(nickname, interaction.user.id)
     await split_send(rag_response, interaction)
 

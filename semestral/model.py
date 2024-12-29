@@ -2,11 +2,10 @@ import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
-from openai import APIStatusError
+import requests
+
 
 from rag_read import read_rag_context
-import requests
-import json
 
 load_dotenv()
 WG_TANKOPEDIA = os.environ.get("WG_TANKOPEDIA")
