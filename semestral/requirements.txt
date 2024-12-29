@@ -9,3 +9,5 @@ langchain-groq
 langchain-core
 json
 requests
+jq
+pylint
