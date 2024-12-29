@@ -1,21 +1,19 @@
+import asyncio
 import os
-from discord.ui import Select, View
+
+import discord.errors
 from discord.ext import commands
-from discord import app_commands, Interaction
-import discord
+from discord import app_commands, Interaction, Object, Intents, ui, SelectOption, File, Embed
+import discord.errors
 from dotenv import load_dotenv
 from math import ceil
-import time
 import discord_emoji as emj
-import json
-import requests
-
 import model as RAG
 
 load_dotenv()
 
 # Change this to your server ID (can be removed completely from all commands below but commands then take a long time to load to the server.
-GUILD_ID = discord.Object(id=os.environ.get("GUILD_ID"))
+GUILD_ID = Object(id=os.environ.get("GUILD_ID"))
 
 # init RAG model
 model = RAG.Model()
@@ -66,29 +64,33 @@ class Bot(commands.Bot):
 
 
 # init intents
-intents = discord.Intents.default()
+intents = Intents.default()
 intents.message_content = True
 bot = Bot(command_prefix="!", intents=intents)
 
 
 # class for maps dropdown menu
 # super() ensures that parent class is properly initialized
-class MapDropdown(discord.ui.Select):
+class MapDropdown(ui.Select):
     def __init__(self):
         options = [
-            discord.SelectOption(label=label, value=label, emoji=emoji)
+            SelectOption(label=label, value=label, emoji=emoji)
             for label, emoji in MAPS_EMOJIS.items()
         ]
         super().__init__(placeholder="Choose a map...", options=options)
 
-    async def callback(self, interaction: discord.Interaction):
-        await interaction.response.defer(ephemeral=True)
+    async def callback(self, interaction: Interaction):
+        try:
+            await interaction.response.defer(ephemeral=True, thinking=True)
+        except discord.errors.NotFound:
+            print("Interaction not found - may be be reinitialized automatically")
+
         await interaction.followup.edit_message(interaction.message.id, content="Thinking...", view=None)
 
         map_name = self.values[0]
         map_filename = self.values[0] + ".png"
-        file = discord.File(f"img/{map_filename}", filename=map_filename)
-        embed = discord.Embed(title=map_name)
+        file = File(f"img/{map_filename}", filename=map_filename)
+        embed = Embed(title=map_name)
         embed.set_image(url=f"attachment://{map_filename}")
         embed.add_field(
             name="Legend",
@@ -102,14 +104,13 @@ class MapDropdown(discord.ui.Select):
             inline=True
         )
 
-        # TODO
         query = f"How should I play the map: {map_name} with each tank class?"
         rag_response = model.query(query, interaction.user.id)
         await split_send(rag_response, interaction, file=file, embed=embed)
 
 
 # View containing the dropdown
-class DropdownView(discord.ui.View):
+class DropdownView(ui.View):
     def __init__(self):
         super().__init__()
         self.add_item(MapDropdown())
@@ -133,10 +134,13 @@ async def help_command(interaction: Interaction):
 @bot.tree.command(name="wot", description="Chat about World of Tanks", guild=GUILD_ID)
 @app_commands.describe(query="Your query related to World of Tanks")
 async def wot_command(interaction: Interaction, query: str):
-    await interaction.response.defer(ephemeral=True)
     print("/wot called")
+    try:
+        await interaction.response.defer(ephemeral=True, thinking=True)
+    except discord.errors.NotFound:
+        print("Interaction not found - may be be reinitialized automatically")
     rag_response = model.query(query, interaction.user.id)
-    await  split_send(rag_response, interaction)
+    await split_send(rag_response, interaction)
 
 
 # /map guides
@@ -144,17 +148,23 @@ async def wot_command(interaction: Interaction, query: str):
 async def map_command(interaction: Interaction):
     print("/map called")
     view = DropdownView()
-    await interaction.response.send_message(content="Select a map guide:", view=view, ephemeral=True)
+    try:
+        await interaction.response.send_message(content="Select a map guide:", view=view, ephemeral=True)
+    except discord.errors.NotFound:
+        print("Interaction not found - may be be reinitialized automatically")
 
 
 # /player-stats personal advice
 @bot.tree.command(name="player-stats", description="Get personalised advice based on your gameplay", guild=GUILD_ID)
 @app_commands.describe(nickname="Your in-game nickname")
 async def stats_command(interaction: Interaction, nickname: str):
-    await interaction.response.defer(ephemeral=True)
     print("/player-stats called")
+    try:
+        await interaction.response.defer(ephemeral=True, thinking=True)
+    except discord.errors.NotFound:
+        print("Interaction not found - may be be reinitialized automatically")
     rag_response = model.player_query(nickname, interaction.user.id)
-    await  split_send(rag_response, interaction)
+    await split_send(rag_response, interaction)
 
 
 bot.run(os.environ.get("DISCORD_API_KEY"))
