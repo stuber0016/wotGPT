@@ -19,9 +19,14 @@ from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_chroma import Chroma
 from huggingface_hub.errors import BadRequestError
 
+load_dotenv()
+
 FOUND_CONTEXT = 1
 NO_CONTEXT = 0
 OTHER_ERROR = 2
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(current_dir, "chroma")
 
 
 def read_rag_context(query):
@@ -49,8 +54,6 @@ def read_rag_context(query):
            - Considers context relevant if the similarity score is >= 0.5.
            - Retrieves up to 3 most relevant context pieces.
        """
-    load_dotenv()
-    db_path = "chroma"
     # configure embedding function - it must be the same function used for creating the rag DB
     if not os.environ.get("HFACE_API_KEY"):
         raise ApiKeyError("HFACE_API_KEY error - read_rag_context")
@@ -61,7 +64,7 @@ def read_rag_context(query):
     )
 
     # load db from file
-    db = Chroma(persist_directory=db_path, embedding_function=embeddings)
+    db = Chroma(persist_directory=DB_PATH, embedding_function=embeddings)
 
     # search for the context and check its relevance
     try:
@@ -77,7 +80,7 @@ def read_rag_context(query):
         print("No relevant RAG context found")
         context_parsed = "No relevant RAG context found so the response can be inaccurate."
 
-    elif context[0][1] < 0.7:
+    elif context[0][1] < 0.5:
         print("No relevant RAG context found score: ", context[0][1])
         context_parsed = "No relevant RAG context found so the response can be inaccurate."
 

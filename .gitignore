@@ -115,6 +115,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-.env
-semestral/tests/.env
 stuff.txt
