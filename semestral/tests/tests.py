@@ -12,6 +12,9 @@ sys.path.insert(0, r"D:/cvut/bi-pyt/semestral/")
 
 from semestral.rag_create import create_rag_context, create_chroma_db, ApiKeyError, load_documents, split_documents
 from semestral.rag_read import read_rag_context, FOUND_CONTEXT, OTHER_ERROR
+from semestral.model import Model
+from unittest.mock import AsyncMock, MagicMock, call
+from semestral.discord_bot import split_send, MAX_MESSAGE_LENGTH
 
 
 class TestRagCreate(unittest.TestCase):
@@ -77,7 +80,7 @@ class TestRagRead(unittest.TestCase):
     @patch('semestral.rag_read.Chroma')
     @patch.dict(os.environ, {}, clear=True)
     def test_invalid_api_key(self, mock_chroma, mock_embeddings):
-        # Setup the mock to simulate an invalid API key response
+        # Se tup the mock to simulate an invalid API key response
         mock_embeddings.side_effect = Exception("Invalid API Key")
 
         # Define a query
@@ -87,6 +90,111 @@ class TestRagRead(unittest.TestCase):
         result, message = read_rag_context(query)
         self.assertEqual(result, OTHER_ERROR)
         self.assertIn("RAG context database error", message)
+
+
+class TestModel(unittest.TestCase):
+
+    def setUp(self):
+        """Set up the test environment."""
+        self.model = Model()
+
+    @patch('semestral.model.requests.get')
+    def test_get_player_id_found(self, mock_get):
+        """Test get_player_id when player is found."""
+        mock_response = MagicMock()
+        mock_response.json.return_value = {
+            "status": "ok",
+            "data": [{"nickname": "player1", "account_id": "12345"}]
+        }
+        mock_get.return_value = mock_response
+
+        player_id = self.model.get_player_id("player1")
+        self.assertEqual(player_id, "12345")
+
+    @patch('semestral.model.requests.get')
+    def test_get_player_id_not_found(self, mock_get):
+        """Test get_player_id when player is not found."""
+        mock_response = MagicMock()
+        mock_response.json.return_value = {
+            "status": "ok",
+            "data": []
+        }
+        mock_get.return_value = mock_response
+
+        player_id = self.model.get_player_id("unknown_player")
+        self.assertIsNone(player_id)
+
+    @patch('semestral.model.requests.get')
+    def test_get_player_data(self, mock_get):
+        """Test get_player_data."""
+        mock_response = MagicMock()
+        mock_response.text = "player_data"
+        mock_get.return_value = mock_response
+
+        player_data = self.model.get_player_data("12345")
+        self.assertEqual(player_data, "player_data")
+
+    @patch('semestral.model.Model.invoke')
+    def test_query(self, mock_invoke):
+        """Test query function."""
+        mock_invoke.return_value = (True, MagicMock(content="response"))
+        response = self.model.query("How to improve my game?", "user1")
+        self.assertEqual(response, "response")
+
+    @patch('semestral.model.Model.invoke')
+    @patch('semestral.model.Model.get_player_id')
+    @patch('semestral.model.Model.get_player_data')
+    def test_player_query(self, mock_get_player_data, mock_get_player_id, mock_invoke):
+        """Test player_query function."""
+        mock_get_player_id.return_value = "12345"
+        mock_get_player_data.return_value = "player_data"
+        mock_invoke.return_value = (True, MagicMock(content="analysis"))
+
+        response = self.model.player_query("player1", "user1")
+        self.assertEqual(response, "analysis")
+
+
+class TestDiscordBot(unittest.IsolatedAsyncioTestCase):
+
+    async def test_split_send_short_message(self):
+        """Test split_send with a message shorter than MAX_MESSAGE_LENGTH."""
+        short_message = "This is a short message."
+        interaction = AsyncMock()
+
+        await split_send(short_message, interaction)
+
+        # Check that the message is sent without splitting
+        interaction.followup.send.assert_called_once_with(short_message, ephemeral=True)
+
+    async def test_split_send_long_message(self):
+        """Test split_send with a message longer than MAX_MESSAGE_LENGTH."""
+        long_message = "A" * (MAX_MESSAGE_LENGTH + 10)  # Create a message slightly longer than MAX_MESSAGE_LENGTH
+        interaction = AsyncMock()
+
+        await split_send(long_message, interaction)
+
+        # Check that the message is split and sent in parts
+        expected_calls = [
+            call(long_message[:MAX_MESSAGE_LENGTH], ephemeral=True),
+            call(long_message[MAX_MESSAGE_LENGTH:], ephemeral=True)
+        ]
+        actual_calls = interaction.followup.send.call_args_list
+        self.assertEqual(actual_calls, expected_calls)
+
+    async def test_split_send_with_file_and_embed(self):
+        """Test split_send with a file and embed."""
+        message = "This is a message with a file and embed."
+        interaction = AsyncMock()
+        file = MagicMock()
+        embed = MagicMock()
+
+        await split_send(message, interaction, file=file, embed=embed)
+
+        # Check that the file and embed are sent first
+        interaction.followup.send.assert_any_call(file=file, embed=embed, ephemeral=True)
+
+        # Check that the message is sent after the file and embed
+        interaction.followup.send.assert_any_call(message, ephemeral=True)
 
 
 if __name__ == '__main__':

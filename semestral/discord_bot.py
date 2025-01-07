@@ -26,6 +26,7 @@ Dependencies:
 
 Note: Requires DISCORD_API_KEY and GUILD_ID environment variables.
       Some emojis used are custom and must be added to the Discord server.
+      You can find them in img/emojis folder.
 """
 from math import ceil
 import os
@@ -44,6 +45,8 @@ load_dotenv()
 
 # Change this to your server ID (can be removed completely from all commands below but commands then take a long time to load to the server).
 GUILD_ID = Object(id=os.environ.get("GUILD_ID"))
+if GUILD_ID is None:
+    raise ValueError("GUILD_ID environment variable is not set")
 
 # init RAG model
 try:
@@ -176,7 +179,7 @@ class MapDropdown(ui.Select):
 
         map_name = self.values[0]
         map_filename = self.values[0] + ".png"
-        file = File(f"img/{map_filename}", filename=map_filename)
+        file = File(f"img/maps/{map_filename}", filename=map_filename)
         embed = Embed(title=map_name)
         embed.set_image(url=f"attachment://{map_filename}")
         embed.add_field(
@@ -191,7 +194,7 @@ class MapDropdown(ui.Select):
             inline=True
         )
 
-        query = f"How should I play the map: {map_name} with each tank class?"
+        query = f"How should I play on the map: {map_name}?"
         rag_response = model.query(query, interaction.user.id)
         await split_send(rag_response, interaction, file=file, embed=embed)
 
@@ -327,4 +330,8 @@ async def stats_command(interaction: Interaction, nickname: str):
 
 # Starts the Discord bot using the API key stored in the DISCORD_API_KEY environment variable.
 # This should be the last line of the script as it starts the bot's event loop.
-bot.run(os.environ.get("DISCORD_API_KEY"))
+try:
+    bot.run(os.environ.get("DISCORD_API_KEY"))
+except TypeError as e:
+    print("Failed to login - check your DISCORD_API_KEY")
+    print(e)
