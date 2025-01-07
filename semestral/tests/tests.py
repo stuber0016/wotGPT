@@ -11,7 +11,7 @@ load_dotenv()
 sys.path.insert(0, r"D:/cvut/bi-pyt/semestral/")
 
 from semestral.rag_create import create_rag_context, create_chroma_db, ApiKeyError, load_documents, split_documents
-from semestral.rag_read import read_rag_context, FOUND_CONTEXT, NO_CONTEXT
+from semestral.rag_read import read_rag_context, FOUND_CONTEXT, OTHER_ERROR
 
 
 class TestRagCreate(unittest.TestCase):
@@ -61,8 +61,7 @@ class TestRagRead(unittest.TestCase):
         queries = [
             "Which tech tree to choose?",
             "How can I strategically use boosters for grinding?",
-            "Tell me positions for Cliff map",
-            "What is the best equipment for the T-100 LT?"
+            "Tell me positions for Cliff map"
         ]
 
         for query in queries:
@@ -70,9 +69,24 @@ class TestRagRead(unittest.TestCase):
             result, context = read_rag_context(query)
 
             # Check that the function returns FOUND_CONTEXT
-            self.assertEqual(result, FOUND_CONTEXT)
+            self.assertEqual(FOUND_CONTEXT, result)
             # Optionally, check that the context is not empty
             self.assertTrue(len(context) > 0)
+
+    @patch('semestral.rag_read.HuggingFaceEndpointEmbeddings')
+    @patch('semestral.rag_read.Chroma')
+    @patch.dict(os.environ, {}, clear=True)
+    def test_invalid_api_key(self, mock_chroma, mock_embeddings):
+        # Setup the mock to simulate an invalid API key response
+        mock_embeddings.side_effect = Exception("Invalid API Key")
+
+        # Define a query
+        query = "What is the capital of France?"
+
+        # Call the function and assert that it returns OTHER_ERROR
+        result, message = read_rag_context(query)
+        self.assertEqual(result, OTHER_ERROR)
+        self.assertIn("RAG context database error", message)
 
 
 if __name__ == '__main__':

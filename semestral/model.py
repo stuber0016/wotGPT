@@ -43,8 +43,12 @@ load_dotenv()
 # Global variables for API endpoints
 WG_TANKOPEDIA = os.environ.get("WG_TANKOPEDIA")
 WG_SEARCH_PLAYER = os.environ.get("WG_SEARCH_PLAYER")
-WG_SEARCH_PLAYER_TIMEOUT = 20
 WG_PLAYER_STAT = os.environ.get("WG_PLAYER_STAT")
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+GROQ_MODEL = os.environ.get("GROQ_MODEL_NEW")
+
+# Timeouts for API requests
+WG_SEARCH_PLAYER_TIMEOUT = 20
 WG_PLAYER_STAT_TIMEOUT = 45
 
 # System message for the AI assistant
@@ -63,9 +67,13 @@ class Model:
 
     def __init__(self):
         """Initialize the Model with a language model and empty context dictionaries."""
+        # check env variables
+        if not all([WG_TANKOPEDIA, WG_SEARCH_PLAYER, WG_PLAYER_STAT, GROQ_API_KEY, GROQ_MODEL]):
+            raise ValueError("Missing environment variables. Please check the configuration.")
+
         # MODEl
-        self.llm = ChatGroq(groq_api_key=os.environ.get("GROQ_API_KEY"),
-                            model_name=os.environ.get("GROQ_MODEL_NEW"),
+        self.llm = ChatGroq(groq_api_key=GROQ_API_KEY,
+                            model_name=GROQ_MODEL,
                             temperature=0.7
                             )
 

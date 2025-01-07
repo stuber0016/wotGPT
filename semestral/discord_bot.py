@@ -46,7 +46,10 @@ load_dotenv()
 GUILD_ID = Object(id=os.environ.get("GUILD_ID"))
 
 # init RAG model
-model = rag.Model()
+try:
+    model = rag.Model()
+except ValueError as e:
+    raise ValueError(e)
 
 # Some emojis are custom THEY MUST BE ADDED TO YOUR SERVER otherwise the bot will crash.
 MAPS_EMOJIS = {"Cliff": emj.to_unicode(":rock:"), "El Halluf": emj.to_unicode(":desert:"),

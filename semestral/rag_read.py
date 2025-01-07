@@ -56,7 +56,8 @@ def read_rag_context(query):
        """
     # configure embedding function - it must be the same function used for creating the rag DB
     if not os.environ.get("HFACE_API_KEY"):
-        raise ApiKeyError("HFACE_API_KEY error - read_rag_context")
+        return OTHER_ERROR, "RAG context database error. Please try again later."
+
     embeddings = HuggingFaceEndpointEmbeddings(
         model="sentence-transformers/all-mpnet-base-v2",
         task="feature-extraction",
