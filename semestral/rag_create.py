@@ -33,6 +33,7 @@ from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import DirectoryLoader
 from langchain_chroma import Chroma
+from huggingface_hub.errors import BadRequestError
 
 load_dotenv()
 
@@ -132,10 +133,14 @@ def create_chroma_db(chunks):
     )
 
     # create Chroma database
-
-    Chroma.from_documents(documents=chunks,
-                          embedding=embeddings,
-                          persist_directory=DB_PATH)
+    try:
+        Chroma.from_documents(documents=chunks,
+                              embedding=embeddings,
+                              persist_directory=DB_PATH)
+    except BadRequestError as e:
+        print(e)
+        print("Probably embeddings API key error")
+        return
 
     print(f"Succesfully created Chroma database of {len(chunks)} chunks")
 

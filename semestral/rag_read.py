@@ -17,6 +17,11 @@ from dotenv import load_dotenv
 from kubernetes.client import ApiKeyError
 from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_chroma import Chroma
+from huggingface_hub.errors import BadRequestError
+
+FOUND_CONTEXT = 1
+NO_CONTEXT = 0
+OTHER_ERROR = 2
 
 
 def read_rag_context(query):
@@ -59,14 +64,28 @@ def read_rag_context(query):
     db = Chroma(persist_directory=db_path, embedding_function=embeddings)
 
     # search for the context and check its relevance
-    context = db.similarity_search_with_score(query, k=3)
-    if len(context) == 0 or context[0][1] < 0.5:
+    try:
+        context = db.similarity_search_with_score(query, k=3)
+    except BadRequestError as e:
+        print(e)
+        print("RAG READ: Probably embeddings API key error")
+        return OTHER_ERROR, "RAG context database error. Please try again later."
+
+    result = NO_CONTEXT
+
+    if len(context) == 0:
+        print("No relevant RAG context found")
+        context_parsed = "No relevant RAG context found so the response can be inaccurate."
+
+    elif context[0][1] < 0.7:
         print("No relevant RAG context found score: ", context[0][1])
         context_parsed = "No relevant RAG context found so the response can be inaccurate."
 
     else:
         print("Found RAG context score: ", context[0][1])
         context_parsed = "\n\n---\n\n".join([page.page_content for page, _score in context])
+        result = FOUND_CONTEXT
+
     header = "Answer the question using information from the context:\n"
     footer = f"\n---\nAnswer the question using information from the context above: {query}"
-    return header + context_parsed + footer
+    return result, header + context_parsed + footer
