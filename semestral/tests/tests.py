@@ -8,9 +8,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-sys.path.insert(0, r"D:/cvut/bi-pyt/semestral/")
+current_dir = os.path.dirname(os.path.abspath(__file__))
+current_dir = current_dir[:-5]
+sys.path.insert(0, current_dir)
 
-from semestral.rag_create import create_rag_context, create_chroma_db, ApiKeyError, load_documents, split_documents
+from semestral.rag_create import create_chroma_db, ApiKeyError, load_documents, split_documents
 from semestral.rag_read import read_rag_context, FOUND_CONTEXT, OTHER_ERROR
 from semestral.model import Model
 from unittest.mock import AsyncMock, MagicMock, call
